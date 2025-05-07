@@ -1,7 +1,6 @@
 import dash
 from dash import html
 
-# Register the page if you're using multiple pages in Dash
 dash.register_page(__name__, path="/about")
 
 layout = html.Div([
@@ -30,28 +29,26 @@ layout = html.Div([
         ], className="row justify-content-center")
     ], className="section p-5 bg-light"),
 
-    # Optional Section: Additional Information
-    html.Section([
-        html.H3("Additional Information", className="text-center mb-4"),
-        html.P("This project aims to provide insights into hate crime trends in the U.S. using a dataset of reported incidents. The data is sourced from public records and provides valuable analysis for policymakers and law enforcement."),
-    ], className="section p-5"),
-
-    # Section: Dataset and GitHub Links
     html.Section([
         html.H3("Find the Dataset and GitHub Repository", className="text-center mb-4"),
         html.Div([
             html.A(
                 "View the Dataset",
-                href="https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/hate-crime",  # Replace with the actual dataset link
-                target="_blank",  # Opens the link in a new tab
-                className="btn btn-outline-primary me-2"  # Button style (Bootstrap)
+                href="https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/hate-crime", 
+                target="_blank", 
+                className="btn btn-outline-primary me-2" 
             ),
             html.A(
                 "Visit GitHub Repository",
-                href="https://github.com/LovelyPrinceGI/crime-prediction-using-ml",  # Replace with your GitHub link
-                target="_blank",  # Opens the link in a new tab
-                className="btn btn-outline-secondary"  # Button style (Bootstrap)
+                href="https://github.com/LovelyPrinceGI/crime-prediction-using-ml",  
+                target="_blank",
+                className="btn btn-outline-secondary"  
             ),
-        ], className="text-center mb-4")
+        ], className="text-center")
     ], className="section p-5"),
+    html.Section([
+        html.H3("Additional Information", className="text-center mb-4"),
+        html.P("This project aims to provide insights into hate crime trends in the U.S. using a dataset of reported incidents. The data is sourced from public records and provides valuable analysis for policymakers and law enforcement."),
+    ], className="section p-5"),
+    
 ], className="container")

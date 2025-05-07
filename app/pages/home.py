@@ -122,42 +122,43 @@ layout = html.Div([
 
     # 🔹 SECTION 2: KPI Cards
     html.Div([
-        html.H4("📌 Key Metrics", className="text-dark mb-4"),
+        html.H4("📌 Key Metrics", className="text-dark mb-4"),    
         dbc.Row([
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        html.H5("Total Incidents", className="card-title"),
-                        html.H2(id="kpi-total", className="card-text")
+                        html.H5("Total Incidents", className="card-title text-uppercase font-weight-bold"),
+                        html.H2(id="kpi-total", className="card-text display-3 "),
                     ]),
-                    className="shadow-sm text-center h-100",
-                    style={"minHeight": "180px"}
+                    className="shadow-lg rounded-lg border border-light mb-4",
+                    style={"minHeight": "200px"}
                 ),
             md=4),
 
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        html.H5("Most Targeted Bias", className="card-title"),
-                        html.H4(id="kpi-bias", className="card-text")
+                        html.H5("Most Targeted Bias", className="card-title text-uppercase font-weight-bold"),
+                        html.H4(id="kpi-bias", className="card-text display-3 ", style={"word-wrap": "break-word", "font-size": "2.2rem"}),
                     ]),
-                    className="shadow-sm text-center h-100",
-                    style={"minHeight": "180px"}
+                    className="shadow-lg rounded-lg border border-light mb-4",
+                    style={"minHeight": "200px"}
                 ),
             md=4),
 
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
-                        html.H5("Peak Year", className="card-title"),
-                        html.H4(id="kpi-year", className="card-text")
+                        html.H5("Peak Year", className="card-title text-uppercase font-weight-bold"),
+                        html.H4(id="kpi-year", className="card-text display-4 "),
                     ]),
-                    className="shadow-sm text-center h-100",
-                    style={"minHeight": "180px"}
+                    className="shadow-lg rounded-lg border border-light mb-4",
+                    style={"minHeight": "200px"}
                 ),
             md=4),
-        ])
-    ], className="mb-5"),
+        ], className="mb-5 row g-4"),
+    ]),
+    
 
     html.Hr(),
 
@@ -187,24 +188,41 @@ def update_map(selected_year, selected_bias):
 
     # Group by state
     state_counts = dff["state_abbr"].value_counts().reset_index()
-    state_counts.columns = ["state", "incident_count"]
+    state_counts.columns = ["state_abbr", "incident_count"]
+    state_counts = state_counts.merge(df[['state_abbr', 'state_name']].drop_duplicates(), on='state_abbr', how='left')
+
 
     # Plotly choropleth
     fig = px.choropleth(
         state_counts,
-        locations="state",
+        locations="state_abbr",
         locationmode="USA-states",
         color="incident_count",
+        hover_name="state_name",
+        hover_data={"incident_count": True, "state_abbr": False}, 
         scope="usa",
         color_continuous_scale="OrRd",
         title="Hate Crime Incidents by State",
     )
+    fig.update_traces(
+        hovertemplate="<b>%{customdata[0]}</b><br>" +  
+                    "Incident Count: %{customdata[1]}<br>" +  
+                    "<extra></extra>",  
+        customdata=state_counts[['state_name', 'incident_count']].values, 
+    )
 
     fig.update_layout(
-        paper_bgcolor="#f8f9fa",   # outer background
-        plot_bgcolor="#f8f9fa",    # inner background
-        geo=dict(bgcolor="#f8f9fa"),  # map region background
+        paper_bgcolor="#f8f9fa",   
+        plot_bgcolor="#f8f9fa",  
+        geo=dict(bgcolor="#f8f9fa"), 
         margin=dict(l=0, r=0, t=50, b=0),
+        hoverlabel=dict(
+            bgcolor="white",
+            font_size=14,
+            font_family="Arial",
+            bordercolor="#000",
+            align="left",
+        )
     )
 
     return fig
@@ -284,7 +302,7 @@ def update_top_offenses(selected_year, selected_bias):
         xaxis_title="Offense Type",
         xaxis=dict(
         ticklabelposition="outside",    
-    ),
+        ),
         yaxis=dict(
             title_standoff=20         # ⬅ adds space to the left of y-axis label
         ),
@@ -299,8 +317,7 @@ def update_top_offenses(selected_year, selected_bias):
         font_family="Arial",
         bordercolor="#000",
         align="left"
-
-    )
+        )
     )
 
     return fig

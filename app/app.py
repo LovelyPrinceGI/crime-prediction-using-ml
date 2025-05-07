@@ -22,7 +22,7 @@ SIDEBAR_STYLE = {
 }
 
 sidebar = html.Div([
-    html.H4("Criminal Pattern Explorer", className="titlebar mb-4"),
+    html.H1("Criminal Pattern Explorer", className="titlebar mb-4"),
 
     html.H6("Analysis", className="subsection fw-bold"),
     html.Hr(style={"borderColor": "#e0e0e0"}),

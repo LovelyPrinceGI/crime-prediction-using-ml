@@ -44,7 +44,7 @@
 /* Top Title: "Your Dashboard" */
 .titlebar {
   color: #e0e0e0 !important;  /* bright white for contrast */
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
@@ -56,3 +56,9 @@
   font-weight: 600;
   color: #1e1e2f;
 }
+
+/* .card1:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    cursor: pointer;
+} */
