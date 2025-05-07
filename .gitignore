@@ -10,3 +10,18 @@ hate_crime.csv
 Bias Types_03-13-2025.csv
 hate_crime_prediction.pdf
 hate_crime_prediction.html
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Ignore virtual environment directories
+venv/
+.env/
+
+# Ignore IDE-specific files (for example, VS Code)
+.vscode/
+
+# Ignore system-specific files (e.g., macOS)
+.DS_Store
